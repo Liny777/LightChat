@@ -1,7 +1,7 @@
 # iems5722
 test1
 This is an Andriod online chatting application with some basic features. 
->Team Members: ZHU Yifan (1155150604), FANG Wei(1155145703), WANG Runze(1155148632).
+>Team Members: ZHU Yifan (1155150604), FANG Wei(1155145703).
 
 ## Log in/out, Sign up (Feature mostly developed by Yifan Zhu, UI mostly developed by Wei Fang)
 Once openning the application, you need to create your account with an unique user name, an unique user ID and your password by using the **Sign up** function, then you can log in using your account. The page will be re-directed to a public chatroom list. You can log out when you click the **log out** button in the menu options.
