@@ -117,9 +117,12 @@ public class Utils {
                 httpBuilder.addQueryParameter(param.getKey(),param.getValue());
             }
         }
+        SharedPreferences pref= GlobalApplication.getAppContext().getSharedPreferences("user",Context.MODE_PRIVATE);
         Request request = new Request.Builder()
                 .url(httpBuilder.build())
+                .addHeader("jwt",pref.getString("jwt",""))
                 .build();
+        System.out.println("url: "+httpBuilder.build());
         client.newCall(request).enqueue(callback);
     }
 
@@ -127,13 +130,16 @@ public class Utils {
         final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
         OkHttpClient client = new OkHttpClient();
         JSONObject jsonObject = new JSONObject();
-        for (Map.Entry<String,Object> param: params.entrySet()){
-            try {
-                jsonObject.put(param.getKey(),param.getValue());
-            } catch (JSONException e) {
-                e.printStackTrace();
+        if (params!=null){
+            for (Map.Entry<String,Object> param: params.entrySet()){
+                try {
+                    jsonObject.put(param.getKey(),param.getValue());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         }
+
         RequestBody body = RequestBody.create(JSON, String.valueOf(jsonObject));
         SharedPreferences pref= GlobalApplication.getAppContext().getSharedPreferences("user",Context.MODE_PRIVATE);
         Request request = new Request.Builder()

@@ -43,7 +43,12 @@
     <string name="Generate_QR_Code">My QR Code</string>
     <string name="Scan_QR_Code">Scan </string>
 
+    <string name="base_url">http://10.0.2.2:8080</string>
     <string name="register_url">http://10.0.2.2:8080/register</string>
     <string name="login_url">http://10.0.2.2:8080/login</string>
+    <string name="search_url">http://10.0.2.2:8080/friend/search</string>
+    <string name="check_url">http://10.0.2.2:8080/friend/check</string>
+    <string name="add_friend_url">http://10.0.2.2:8080/friend/add</string>
+    <string name="fast_login_url">http://10.0.2.2:8080/fast_login</string>
 
 </resources>

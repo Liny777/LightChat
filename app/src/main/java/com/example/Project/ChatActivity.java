@@ -104,7 +104,7 @@ public class ChatActivity extends AppCompatActivity {
         idNamePage.chatroom_name = getIntent().getBundleExtra("data").getString("chatroom_name");
         idNamePage.user_name = getIntent().getBundleExtra("data").getString("user_name");
         idNamePage.chatroomId = getIntent().getBundleExtra("data").getInt("chatroom_id");
-        idNamePage.user_id = getIntent().getBundleExtra("data").getInt("user_id");
+        idNamePage.user_id = getIntent().getBundleExtra("data").getString("user_id");
     }
 
     public IdNamePage getIdNamePage() {

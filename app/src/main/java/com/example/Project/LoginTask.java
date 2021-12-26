@@ -17,12 +17,12 @@ public class LoginTask extends AsyncTask<String, Void, Void> {
     private ArrayList<String> para_values = new ArrayList<String>();
     private String result;
     private String message;
-    private int userId;
+    private String userId;
     private String password;
     private String userName;
 
-    public LoginTask(int intUserId, String password, Context context) {
-        this.userId = intUserId;
+    public LoginTask(String  UserId, String password, Context context) {
+        this.userId = UserId;
         this.password = password;
         this.context = context;
     }

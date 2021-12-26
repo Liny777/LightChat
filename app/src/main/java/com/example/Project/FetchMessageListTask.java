@@ -54,7 +54,7 @@ public class FetchMessageListTask extends AsyncTask<String, Void, Void> {
             for (int i = 0; i < messageArray.length(); i++) {
                 int id = messageArray.getJSONObject(i).getInt("id");
                 String content = messageArray.getJSONObject(i).getString("message");
-                int user_id = messageArray.getJSONObject(i).getInt("user_id");
+                String user_id = messageArray.getJSONObject(i).getString("user_id");
                 String user_name = messageArray.getJSONObject(i).getString("name");
                 String time = messageArray.getJSONObject(i).getString("message_time");
 

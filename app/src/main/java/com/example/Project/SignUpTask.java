@@ -17,12 +17,12 @@ public class SignUpTask extends AsyncTask<String, Void, Void> {
     private ArrayList<String> para_values = new ArrayList<String>();
     private String result;
     private String message;
-    private int user_id;
+    private String user_id;
     private String name;
     private String password;
 
-    public SignUpTask(int intUserId, String password, String name, Context context) {
-        this.user_id = intUserId;
+    public SignUpTask(String UserId, String password, String name, Context context) {
+        this.user_id = UserId;
         this.name = name;
         this.password = password;
         this.context = context;

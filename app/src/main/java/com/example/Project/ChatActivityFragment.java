@@ -63,7 +63,7 @@ public class ChatActivityFragment extends Fragment {
                 JSONObject json = (JSONObject) msg.obj;
                 Message new_message = null;
                 try {
-                    new_message = new Message(json.getInt("id"), json.getString("message"), json.getInt("user_id"), json.getString("name"), Message.TYPE_RECEIVE, json.getString("message_time"));
+                    new_message = new Message(json.getInt("id"), json.getString("message"), json.getString("user_id"), json.getString("name"), Message.TYPE_RECEIVE, json.getString("message_time"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

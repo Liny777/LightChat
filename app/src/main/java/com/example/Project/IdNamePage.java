@@ -5,7 +5,7 @@ public class IdNamePage {
     int currentPage = 1;
     int totalPage = 0;
     int chatroomId;
-    int user_id;
+    String user_id;
     String user_name;
     String chatroom_name;
     String balance = "0.00";

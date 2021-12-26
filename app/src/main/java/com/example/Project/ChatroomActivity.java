@@ -49,7 +49,7 @@ public class ChatroomActivity extends AppCompatActivity {
         ChatroomActivityFragment fragment = (ChatroomActivityFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_main);
         switch (id){
             case R.id.action_logout:
-                ChatroomActivityFragment.setLoginInformation(false, "", 0);
+                ChatroomActivityFragment.setLoginInformation(false, "", "");
                 Toast.makeText(this, "You have logged out", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(this, LoginActivity.class);
                 startActivity(intent);

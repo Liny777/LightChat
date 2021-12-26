@@ -8,14 +8,14 @@ import org.json.JSONObject;
 
 public class FetchRedEnvelopeTask extends AsyncTask<String, Void, Void> {
     private int message_id;
-    private int user_id;
+    private String user_id;
     private int chatroom_id;
     private String result;
     private String message;
     private String money;
     private Context context;
 
-    public FetchRedEnvelopeTask(int message_id, int user_id, int chatroom_id, Context context) {
+    public FetchRedEnvelopeTask(int message_id, String user_id, int chatroom_id, Context context) {
         this.message_id = message_id;
         this.user_id = user_id;
         this.chatroom_id = chatroom_id;

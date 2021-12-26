@@ -7,16 +7,16 @@ class Message {
     String time;
     String user_name;
     int id = 0;
-    int user_id = 0;
+    String user_id = "";
     int type;
 
-    public Message(String content, int user_id, String user_name) {
+    public Message(String content, String user_id, String user_name) {
         this.content = content;
         this.user_id = user_id;
         this.user_name = user_name;
     }
 
-    public Message(int id, String content, int user_id, String user_name, int type, String time) {
+    public Message(int id, String content, String user_id, String user_name, int type, String time) {
         this.content = content;
         this.type = type;
         this.time = time;

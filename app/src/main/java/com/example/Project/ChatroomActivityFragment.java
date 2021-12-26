@@ -50,7 +50,7 @@ public class ChatroomActivityFragment extends Fragment {
     private ListView lv;
     private ChatroomAdapter chatroomAdapter;
     private static String user_name = "";
-    private static int user_id = 0;
+    private static String user_id = "";
     private static boolean hasLoggedIn = false;
     private ArrayList<String> wallet = new ArrayList<>();
     private String currentContent="public rooms";
@@ -179,12 +179,10 @@ public class ChatroomActivityFragment extends Fragment {
                         mWallet.setVisibility(View.VISIBLE);
 
 
-                        FetchWallet task3 = new FetchWallet(getContext(), user_id, wallet, mWallet);//,userid,username);//,balance);
-                        task3.execute("http://3.17.158.90/api/a3/get_wallet?user_id=%d");
                         //setContentView(R.layout.activity_main);
                         setData();
                         mUserName.setText(user_name);
-                        mID.setText(Integer.toString(user_id));
+                        mID.setText(user_id);
                         mNickName.setRightDesc(user_name);
                         return true;
 
@@ -206,7 +204,7 @@ public class ChatroomActivityFragment extends Fragment {
                     bundle.putString("chatroom_name", chatroomName);
                     bundle.putString("user_name", user_name);
                     bundle.putInt("chatroom_id", chatroomId);
-                    bundle.putInt("user_id", user_id);
+                    bundle.putString("user_id", user_id);
                     intent.putExtra("data", bundle);
                     startActivity(intent);
                 } else {
@@ -217,7 +215,7 @@ public class ChatroomActivityFragment extends Fragment {
         });
     }
 
-    public static void setLoginInformation(boolean status, String userName, int userId) {
+    public static void setLoginInformation(boolean status, String userName, String userId) {
         hasLoggedIn = status;
         user_name = userName;
         user_id = userId;
@@ -266,7 +264,7 @@ public class ChatroomActivityFragment extends Fragment {
                     String friend_id = friend_id_display.getText().toString().trim();
                     String friend_name = friend_name_display.getText().toString().trim();
                     add_friend.setEnabled(true);
-                    addFriend(Integer.toString(user_id), friend_id, user_name, friend_name);
+                    addFriend(user_id, friend_id, user_name, friend_name);
                 }
                 else{
                     add_friend.setEnabled(false);
@@ -286,7 +284,8 @@ public class ChatroomActivityFragment extends Fragment {
 
             Map<String, String> map = new HashMap<>();
             map.put("user_id", friend_id);
-            Utils.sendOkHttpGetRequest(GET_USER_URL, map, new Callback() {
+            //获取用户
+            Utils.sendOkHttpGetRequest(getActivity().getString(R.string.search_url), map, new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
                     getActivity().runOnUiThread(new Runnable() {
@@ -304,27 +303,16 @@ public class ChatroomActivityFragment extends Fragment {
                         String responseData = response.body().string();
                         final JSONObject jsonObject = new JSONObject(responseData);
                         //final JSONObject jsonObject = new JSONObject(response.body().string());
-                        Log.d("Search riend", "get user response: " + jsonObject.toString());
-                        if (jsonObject.getString("status").equalsIgnoreCase("OK")) {
-
-                            final JSONArray data = jsonObject.getJSONArray("data");
-
+                        Log.d("Search friend", "get user response: " + jsonObject.toString());
+                        if (jsonObject.getString("code").equals("1001")) {
                             getActivity().runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
                                     try {
                                         Log.d("Searched", "Display User Info");
-                                        /**
-                                         * jasonarray
-                                         * */
-                                        for(int i = 0; i < data.length(); i++)
-                                        {
-                                            friend_name_display.setText(data.getJSONObject(i).getString("name"));
-                                            friend_id_display.setText(data.getJSONObject(i).getString("id"));
-                                            //friend_id_display.setVisibility(View.VISIBLE);
-                                            //friend_name_display.setVisibility(View.VISIBLE);
-                                            checkFriend(Integer.toString(user_id), data.getJSONObject(i).getString("id"));
-                                        }
+                                        friend_name_display.setText(jsonObject.getString("username"));
+                                        friend_id_display.setText(jsonObject.getString("id"));
+                                        checkFriend(friend_id);
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
@@ -332,13 +320,13 @@ public class ChatroomActivityFragment extends Fragment {
 
                             });
 
-                        } else if (jsonObject.getString("status").equalsIgnoreCase("ERROR")) {
+                        } else{
                             getActivity().runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
                                     try {
                                         friend_display.setVisibility(View.GONE);
-                                        Toast.makeText(getActivity(), jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getActivity(), jsonObject.getString("msg"), Toast.LENGTH_SHORT).show();
                                         Log.d("Search Friend", "NOT FOUND THE USER !!!");
 
                                     } catch (JSONException e) {
@@ -360,9 +348,8 @@ public class ChatroomActivityFragment extends Fragment {
     /**
      * Check befriend or not
      * */
-    private void checkFriend(String user_id, String friend_id) {
+    private void checkFriend(String friend_id) {
         Map<String, String> map = new HashMap<>();
-        map.put("user_id", user_id);
         map.put("friend_id", friend_id);
         if(user_id.equals(friend_id)){
             getActivity().runOnUiThread(new Runnable() {
@@ -376,7 +363,7 @@ public class ChatroomActivityFragment extends Fragment {
             add_friend.setEnabled(false);
             return;
         }
-        Utils.sendOkHttpGetRequest(CHECK_FRIEND_URL, map, new Callback() {
+        Utils.sendOkHttpGetRequest(getActivity().getString(R.string.check_url), map, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 getActivity().runOnUiThread(new Runnable() {
@@ -399,7 +386,7 @@ public class ChatroomActivityFragment extends Fragment {
                         @Override
                         public void run() {
                             try {
-                                if (jsonObject.getString("status").equalsIgnoreCase("OK")) {
+                                if (jsonObject.getString("isFriend").equals("true")) {
                                     add_friend.setText("Friended");
                                     add_friend.setEnabled(false);
                                     Toast.makeText(getActivity(),"Already be Friend ", Toast.LENGTH_SHORT).show();
@@ -413,8 +400,6 @@ public class ChatroomActivityFragment extends Fragment {
                             friend_display.setVisibility(View.VISIBLE);
                         }
                     });
-
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

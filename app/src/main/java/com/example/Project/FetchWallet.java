@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class FetchWallet extends AsyncTask<String, Void, Void> {
     private static String emptyMessageList = "Server returns 0 messages";
-    private int user_id;
+    private String user_id;
     private Context context;
     private IdNamePage idNamePage;
     private ArrayList<String> wallet = new ArrayList<>();
@@ -18,7 +18,7 @@ public class FetchWallet extends AsyncTask<String, Void, Void> {
     boolean needDisplay = true;
 
 
-    public FetchWallet(Context context, int user_id, ArrayList<String> wallet, ItemView mwallet) {
+    public FetchWallet(Context context, String user_id, ArrayList<String> wallet, ItemView mwallet) {
 
         this.context = context;
         this.user_id = user_id;
