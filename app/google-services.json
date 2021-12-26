@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "699789543851",
+    "project_id": "lightchat-64693",
+    "storage_bucket": "lightchat-64693.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:699789543851:android:d8ab1acb5e6e0a0ffdeaee",
+        "android_client_info": {
+          "package_name": "com.example.Project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "699789543851-nc3soedsarukiodujcp7ptecb3mtnc01.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCshvmBTxCo_DjgUuS2nARU1DOFDJRWZiA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "699789543851-nc3soedsarukiodujcp7ptecb3mtnc01.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:699789543851:android:fc520d6f40fac5fcfdeaee",
+        "android_client_info": {
+          "package_name": "com.example.chatapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "699789543851-nc3soedsarukiodujcp7ptecb3mtnc01.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCshvmBTxCo_DjgUuS2nARU1DOFDJRWZiA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "699789543851-nc3soedsarukiodujcp7ptecb3mtnc01.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
