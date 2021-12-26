@@ -27,7 +27,8 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 }
-
+apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
 dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.2.0'
@@ -51,5 +52,10 @@ dependencies {
     implementation('io.socket:socket.io-client:2.0.0') {
         exclude group: 'org.json', module: 'json'
     }
+    implementation platform('com.google.firebase:firebase-bom:29.0.3')
+    implementation 'com.google.firebase:firebase-analytics'
+    // Add the Firebase Cloud Messaging SDK
+    implementation 'com.google.firebase:firebase-messaging:20.1.2'
+    implementation 'com.google.code.gson:gson:2.8.0'  //(gson生成和解析库)
 
 }
