@@ -86,7 +86,7 @@
         </RelativeLayout>
 
 
-        <com.example.A4_1155150604.ItemView
+        <com.example.Project.ItemView
 
             android:id="@+id/nickName"
             android:layout_width="wrap_content"
@@ -95,7 +95,7 @@
             app:left_text="Name" />
 
 
-        <com.example.A4_1155150604.ItemView
+        <com.example.Project.ItemView
             android:id="@+id/wallet1"
             android:layout_width="wrap_content"
             android:layout_height="50dp"

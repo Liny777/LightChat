@@ -1,6 +1,13 @@
-package com.example.A4_1155150604;
+package com.example.Project;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
+
+import com.example.Project.application.GlobalApplication;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -15,8 +22,10 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import okhttp3.HttpUrl;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 
 public class Utils {
     public static String fetchPage(String urlString) {
@@ -114,5 +123,24 @@ public class Utils {
         client.newCall(request).enqueue(callback);
     }
 
-
+    public static void sendOKHttpPostRequest(String address,Map<String,Object> params,okhttp3.Callback callback){
+        final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+        OkHttpClient client = new OkHttpClient();
+        JSONObject jsonObject = new JSONObject();
+        for (Map.Entry<String,Object> param: params.entrySet()){
+            try {
+                jsonObject.put(param.getKey(),param.getValue());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        RequestBody body = RequestBody.create(JSON, String.valueOf(jsonObject));
+        SharedPreferences pref= GlobalApplication.getAppContext().getSharedPreferences("user",Context.MODE_PRIVATE);
+        Request request = new Request.Builder()
+                .url(address)
+                .addHeader("jwt",pref.getString("jwt",""))
+                .post(body)
+                .build();
+        client.newCall(request).enqueue(callback);
+    }
 }

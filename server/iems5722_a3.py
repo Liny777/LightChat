@@ -1,3 +1,4 @@
+
 from decimal import Decimal
 
 from flask_sqlalchemy import SQLAlchemy

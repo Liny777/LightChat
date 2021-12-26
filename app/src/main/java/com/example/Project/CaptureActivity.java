@@ -1,4 +1,4 @@
-package com.example.A4_1155150604;
+package com.example.Project;
 
 public class CaptureActivity extends com.journeyapps.barcodescanner.CaptureActivity {
 

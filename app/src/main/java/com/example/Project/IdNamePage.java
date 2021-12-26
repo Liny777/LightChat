@@ -1,4 +1,4 @@
-package com.example.A4_1155150604;
+package com.example.Project;
 
 public class IdNamePage {
     public static int firstPage = 1;

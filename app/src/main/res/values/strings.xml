@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">A4_1155150604</string>
+    <string name="app_name">LightChat</string>
     <!-- Strings used for fragments for navigation -->
     <string name="fragment_chatroom">fragment_chatroom</string>
     <string name="fragment_chat">fragment_chat</string>
@@ -7,7 +7,7 @@
     <string name="fragment_sign_up">fragment_sign_up</string>
     <string name="default_chatroom">Default Chatroom</string>
     <string name="previous">Previous</string>
-    <string name="user_id_length_hint">Your user ID must be between 4 to 9 chars</string>
+    <string name="user_id_length_hint">Your user ID must be between 4 to 10 chars</string>
 
     <string name="exit">Exit</string>
     <string name="logout">Log out</string>
@@ -21,10 +21,10 @@
     <string name="input_user_id_hint"> ID</string>
 
     <string name="user_name_empty">Please enter your username</string>
-    <string name="user_name_length_hint">Your username must be between 4 to 20 chars</string>
+    <string name="user_name_length_hint">Your username must be between 1 to 20 chars</string>
     <string name="user_id_empty">Please enter your user ID</string>
     <string name="user_password_empty">Please enter your password</string>
-    <string name="user_password_length_hint">Your password must be between 4 to 20 chars</string>
+    <string name="user_password_length_hint">Your password must be between 8 to 20 chars</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_account">Account</string>
@@ -43,5 +43,7 @@
     <string name="Generate_QR_Code">My QR Code</string>
     <string name="Scan_QR_Code">Scan </string>
 
+    <string name="register_url">http://10.0.2.2:8080/register</string>
+    <string name="login_url">http://10.0.2.2:8080/login</string>
 
 </resources>

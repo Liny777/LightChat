@@ -9,42 +9,43 @@
 
     <EditText
         android:id="@+id/et_user_id"
-        android:layout_centerHorizontal="true"
         android:layout_width="250sp"
         android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
+        android:background="@drawable/background_login"
         android:hint="@string/input_user_id_hint"
         android:maxLines="3"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:textSize="16sp"
-        android:background="@drawable/background_login" />
+        android:textSize="16sp" />
+
     <EditText
         android:id="@+id/et_user_name"
         android:layout_width="250sp"
         android:layout_height="50dp"
-        android:textSize="16sp"
-        android:hint="@string/input_user_name_hint"
+        android:layout_below="@id/et_user_id"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
+        android:background="@drawable/background_login"
+        android:hint="@string/input_user_name_hint"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:layout_below="@id/et_user_id"
-        android:background="@drawable/background_login"
-        android:layout_centerHorizontal="true" />
+        android:textSize="16sp" />
 
     <EditText
         android:id="@+id/et_user_password"
         android:layout_width="250sp"
         android:layout_height="50dp"
-        android:textSize="16sp"
+        android:layout_below="@id/et_user_name"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/background_login"
         android:hint="@string/input_user_password_hint"
         android:inputType="textPassword"
-        android:layout_marginTop="15dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:layout_below="@id/et_user_name"
-        android:background="@drawable/background_login"
-        android:layout_centerHorizontal="true" />
+        android:textSize="16sp" />
 
     <Button
         android:id="@+id/bt_confirm"

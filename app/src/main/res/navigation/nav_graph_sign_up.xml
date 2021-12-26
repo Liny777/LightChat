@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/SignUpActivityFragment"
-        android:name="com.example.A4_1155150604.SignUpActivityFragment"
+        android:name="com.example.Project.SignUpActivityFragment"
         android:label="@string/fragment_sign_up"
         tools:layout="@layout/fragment_sign_up"></fragment>
 

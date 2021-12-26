@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/fragment_sign_up"
-        android:name="com.example.A4_1155150604.SignUpActivityFragment"
+        android:name="com.example.Project.SignUpActivityFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:defaultNavHost="true"

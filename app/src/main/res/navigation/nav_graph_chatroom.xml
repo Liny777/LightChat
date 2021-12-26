@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/ChatroomActivityFragment"
-        android:name="com.example.A4_1155150604.ChatroomActivityFragment"
+        android:name="com.example.Project.ChatroomActivityFragment"
         android:label="@string/fragment_chatroom"
         tools:layout="@layout/fragment_chatroom"></fragment>
 
