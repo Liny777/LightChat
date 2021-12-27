@@ -127,13 +127,15 @@ public class ChatroomActivityFragment extends Fragment {
         FetchChatroomListTask task = new FetchChatroomListTask(chatrooms, chatroomAdapter, lv, getContext());
         SharedPreferences pref=getActivity().getSharedPreferences("user",Context.MODE_PRIVATE);
         String jwt=pref.getString("jwt","");
-        task.execute("http://3.17.158.90/api/a3/get_chatrooms",jwt);
+        task.execute(getActivity().getString(R.string.get_all_group_rooms),jwt);
 
         BottomNavigationView navigation = (BottomNavigationView) view.findViewById(R.id.bottom_navigation);
         navigation.bringToFront();
         navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                SharedPreferences pref=getActivity().getSharedPreferences("user",Context.MODE_PRIVATE);
+                String jwt=pref.getString("jwt","");
                 switch (item.getItemId()) {
                     case R.id.public_chatrooms:
                         currentContent="public rooms";
@@ -151,7 +153,7 @@ public class ChatroomActivityFragment extends Fragment {
 
 
                         FetchChatroomListTask task = new FetchChatroomListTask(chatrooms, chatroomAdapter, lv, getContext());
-                        task.execute("http://3.17.158.90/api/a3/get_chatrooms");
+                        task.execute(getActivity().getString(R.string.get_all_group_rooms),jwt);
                         return true;
                     case R.id.friends:
                         currentContent="friends";
@@ -168,8 +170,6 @@ public class ChatroomActivityFragment extends Fragment {
 
 
                         FetchFriendsTask task2 = new FetchFriendsTask(chatrooms, chatroomAdapter, lv, getContext());
-                        SharedPreferences pref=getActivity().getSharedPreferences("user",Context.MODE_PRIVATE);
-                        String jwt=pref.getString("jwt","");
                         task2.execute(getActivity().getString(R.string.get_friend_list) + "?user_id=" + user_id,jwt);
 
                         return true;

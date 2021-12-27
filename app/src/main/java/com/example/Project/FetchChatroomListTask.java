@@ -40,8 +40,8 @@ public class FetchChatroomListTask extends AsyncTask<String, Void, Void> {
 
             JSONArray chatroomArray = json.getJSONArray("data");
             for (int i = 0; i < chatroomArray.length(); i++) {
-                String name = chatroomArray.getJSONObject(i).getString("name");
-                String id = chatroomArray.getJSONObject(i).getString("id");
+                String name = chatroomArray.getJSONObject(i).getString("groupChatName");
+                String id = chatroomArray.getJSONObject(i).getString("_id");
                 chatrooms.add(new Chatroom(name, id));
             }
         } catch (Exception e) {
