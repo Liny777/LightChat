@@ -31,7 +31,7 @@ public class FetchMessageListTask extends AsyncTask<String, Void, Void> {
 
     @Override
     protected Void doInBackground(String... strings) {
-        String json_result = Utils.fetchPage(String.format(strings[0], idNamePage.chatroomId, idNamePage.currentPage));
+        String json_result = Utils.fetchPage(String.format(strings[0], idNamePage.chatroomId, idNamePage.currentPage),strings[1]);
         if (json_result.equals("")) {
             return null;
         }

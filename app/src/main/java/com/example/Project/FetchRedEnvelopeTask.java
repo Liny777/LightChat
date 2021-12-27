@@ -24,7 +24,7 @@ public class FetchRedEnvelopeTask extends AsyncTask<String, Void, Void> {
 
     @Override
     protected Void doInBackground(String... strings) {
-        String json_result = Utils.fetchPage(String.format(strings[0], message_id, user_id, chatroom_id));
+        String json_result = Utils.fetchPage(String.format(strings[0], message_id, user_id, chatroom_id),strings[1]);
         if (json_result.equals("")) { //connection failed
             return null;
         }

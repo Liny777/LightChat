@@ -1,6 +1,8 @@
 package com.example.Project;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,6 +24,7 @@ import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.example.Project.application.GlobalApplication;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.squareup.picasso.Picasso;
@@ -49,8 +52,9 @@ public class ChatroomActivityFragment extends Fragment {
     private ArrayList<Chatroom> chatrooms;
     private ListView lv;
     private ChatroomAdapter chatroomAdapter;
-    private static String user_name = "";
-    private static String user_id = "";
+    static SharedPreferences pref= GlobalApplication.getAppContext().getSharedPreferences("user", Context.MODE_PRIVATE);
+    private static String user_name = pref.getString("user_name","");
+    private static String user_id = pref.getString("user_id","");
     private static boolean hasLoggedIn = false;
     private ArrayList<String> wallet = new ArrayList<>();
     private String currentContent="public rooms";
@@ -121,7 +125,9 @@ public class ChatroomActivityFragment extends Fragment {
         chatroomAdapter = new ChatroomAdapter(getActivity(), R.layout.listview_chatroom_item, chatrooms);
         lv.setAdapter(chatroomAdapter);
         FetchChatroomListTask task = new FetchChatroomListTask(chatrooms, chatroomAdapter, lv, getContext());
-        task.execute("http://3.17.158.90/api/a3/get_chatrooms");
+        SharedPreferences pref=getActivity().getSharedPreferences("user",Context.MODE_PRIVATE);
+        String jwt=pref.getString("jwt","");
+        task.execute("http://3.17.158.90/api/a3/get_chatrooms",jwt);
 
         BottomNavigationView navigation = (BottomNavigationView) view.findViewById(R.id.bottom_navigation);
         navigation.bringToFront();
@@ -162,10 +168,14 @@ public class ChatroomActivityFragment extends Fragment {
 
 
                         FetchFriendsTask task2 = new FetchFriendsTask(chatrooms, chatroomAdapter, lv, getContext());
-                        task2.execute("http://3.17.158.90/api/a3/get_friends" + "?user_id=" + user_id);
+                        SharedPreferences pref=getActivity().getSharedPreferences("user",Context.MODE_PRIVATE);
+                        String jwt=pref.getString("jwt","");
+                        task2.execute(getActivity().getString(R.string.get_friend_list) + "?user_id=" + user_id,jwt);
 
                         return true;
                     case R.id.wallet:
+                        System.out.println("userName:"+user_name);
+                        System.out.println("userId:"+user_id);
                         currentContent="account";
                         chatrooms.clear();
                         chatroomAdapter.notifyDataSetChanged();
@@ -198,12 +208,12 @@ public class ChatroomActivityFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (hasLoggedIn) {
                     String chatroomName = chatrooms.get((int) id).name;
-                    int chatroomId = chatrooms.get((int) id).id;
+                    String chatroomId = chatrooms.get((int) id).id;
                     Intent intent = new Intent(getActivity(), ChatActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putString("chatroom_name", chatroomName);
                     bundle.putString("user_name", user_name);
-                    bundle.putInt("chatroom_id", chatroomId);
+                    bundle.putString("chatroom_id", chatroomId);
                     bundle.putString("user_id", user_id);
                     intent.putExtra("data", bundle);
                     startActivity(intent);
@@ -414,38 +424,47 @@ public class ChatroomActivityFragment extends Fragment {
             @Override
             public void run() {
                 try {
-                    OkHttpClient client = new OkHttpClient();
-                    RequestBody requestBody = new FormBody.Builder()
-                            .add("user_id", user_id)
-                            .add("friend_id", friend_id)
-                            .build();
-                    Request request = new Request.Builder()
-                            .url(BEFRIEND_URL)
-                            .post(requestBody)
-                            .build();
-                    Response response = null;
-                    response = client.newCall(request).execute();
-                    String result = response.body().string();
-                    Log.d("Befriended", result);
-                    if (result != null) {
-                        final JSONObject jsonObject = new JSONObject(result);
-                        if (jsonObject.getString("status").equalsIgnoreCase("OK")) {
-                            //final JSONObject data = jsonObject.getJSONObject("data");
-                            getActivity().runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    add_friend.setText("Friended");
-                                    add_friend.setEnabled(false);
-                                    if(currentContent.equals("friends")){
-                                        chatrooms.clear();
-                                        chatroomAdapter.notifyDataSetChanged();
-                                        FetchFriendsTask task2 = new FetchFriendsTask(chatrooms, chatroomAdapter, lv, getContext());
-                                        task2.execute("http://3.17.158.90/api/a3/get_friends" + "?user_id=" + user_id);
-                                    }
-                                }
-                            });
+                    Map<String,Object> params=new HashMap<>(2);
+                    params.put("userId",user_id);
+                    params.put("friendId",friend_id);
+                    params.put("userName",name);
+                    params.put("friendName",friend_name);
+                    Utils.sendOkHttpPostRequest(getActivity().getString(R.string.add_friend_url), params, new Callback() {
+                        @Override
+                        public void onFailure(Call call, IOException e) {
+                            e.printStackTrace();
                         }
-                    }
+                        @Override
+                        public void onResponse(Call call, Response response) throws IOException {
+                            String result = response.body().string();
+                            Log.d("Befriended", result);
+                            if (result != null) {
+                                try {
+                                    final JSONObject jsonObject = new JSONObject(result);
+                                    if (jsonObject.getString("code").equalsIgnoreCase("1001")) {
+                                        //final JSONObject data = jsonObject.getJSONObject("data");
+                                        getActivity().runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                add_friend.setText("Friended");
+                                                add_friend.setEnabled(false);
+                                                if(currentContent.equals("friends")){
+                                                    chatrooms.clear();
+                                                    chatroomAdapter.notifyDataSetChanged();
+                                                    SharedPreferences pref=getActivity().getSharedPreferences("user",Context.MODE_PRIVATE);
+                                                    String jwt=pref.getString("jwt","");
+                                                    FetchFriendsTask task2 = new FetchFriendsTask(chatrooms, chatroomAdapter, lv, getContext());
+                                                    task2.execute(getActivity().getString(R.string.get_friend_list) + "?user_id=" + user_id,jwt);
+                                                }
+                                            }
+                                        });
+                                    }
+                                }catch(JSONException e){
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+                    });
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

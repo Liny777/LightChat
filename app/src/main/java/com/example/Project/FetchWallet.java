@@ -35,7 +35,7 @@ public class FetchWallet extends AsyncTask<String, Void, Void> {
 
     @Override
     protected Void doInBackground(String... strings) {
-        String json_result = Utils.fetchPage(String.format(strings[0], user_id));
+        String json_result = Utils.fetchPage(String.format(strings[0], user_id),strings[1]);
         if (json_result.equals("")) {
             return null;
         }

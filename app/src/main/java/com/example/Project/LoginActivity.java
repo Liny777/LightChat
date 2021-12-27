@@ -19,7 +19,6 @@ import java.io.IOException;
 
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.OkHttpClient;
 import okhttp3.Response;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -33,7 +32,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         SharedPreferences pref=this.getSharedPreferences("user",MODE_PRIVATE);
         if (!(pref.getString("jwt","").equals(""))){
-            Utils.sendOKHttpPostRequest(this.getString(R.string.fast_login_url), null, new Callback() {
+            Utils.sendOkHttpGetRequest(this.getString(R.string.fast_login_url), null, new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
                     e.printStackTrace();
@@ -47,8 +46,9 @@ public class LoginActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 try {
-                                    Toast.makeText(getApplicationContext(), jsonObject.getString("msg"), Toast.LENGTH_SHORT).show();
                                     Log.i("fast_login",s);
+                                    Toast.makeText(getApplicationContext(), jsonObject.getString("msg"), Toast.LENGTH_SHORT).show();
+
                                     if (jsonObject.getString("code").equals("1001")){
                                         Intent intent=new Intent(getApplicationContext(),ChatroomActivity.class);
                                         startActivity(intent);

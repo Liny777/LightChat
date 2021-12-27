@@ -77,7 +77,7 @@ public class LoginActivityFragment extends Fragment {
                 Map<String,Object> params=new HashMap<>(2);
                 params.put("id",userId);
                 params.put("password",userPassword);
-                Utils.sendOKHttpPostRequest(getActivity().getString(R.string.login_url), params, new Callback() {
+                Utils.sendOkHttpPostRequest(getActivity().getString(R.string.login_url), params, new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
                         e.printStackTrace();
@@ -98,11 +98,16 @@ public class LoginActivityFragment extends Fragment {
                                         Toast.makeText(getActivity(),jsonObject.getString("msg"),Toast.LENGTH_SHORT).show();
                                         if (code.equals("1001")){
                                             String jwt=jsonObject.getString("jwt_token");
+                                            String userName=jsonObject.getString("user_name");
                                             SharedPreferences user=getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
                                             SharedPreferences.Editor editor = user.edit();
                                             editor.putString("jwt",jwt);
+                                            editor.putString("user_id",userId);
+                                            editor.putString("user_name",userName);
                                             editor.commit();
                                             Log.i("LOGIN","saved jwt: "+jwt);
+                                            Log.i("LOGIN","saved id: "+userId);
+                                            Log.i("LOGIN","saved name: "+userName);
                                             Intent intent = new Intent(getActivity(),ChatroomActivity.class);
                                             getActivity().startActivity(intent);
                                         }

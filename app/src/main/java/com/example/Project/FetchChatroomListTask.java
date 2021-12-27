@@ -26,7 +26,7 @@ public class FetchChatroomListTask extends AsyncTask<String, Void, Void> {
 
     @Override
     protected Void doInBackground(String... strings) {
-        String json_result = Utils.fetchPage(strings[0]);
+        String json_result = Utils.fetchPage(strings[0],strings[1]);
         if (json_result.equals("")) { //connection failed
             return null;
         }
@@ -41,7 +41,7 @@ public class FetchChatroomListTask extends AsyncTask<String, Void, Void> {
             JSONArray chatroomArray = json.getJSONArray("data");
             for (int i = 0; i < chatroomArray.length(); i++) {
                 String name = chatroomArray.getJSONObject(i).getString("name");
-                int id = chatroomArray.getJSONObject(i).getInt("id");
+                String id = chatroomArray.getJSONObject(i).getString("id");
                 chatrooms.add(new Chatroom(name, id));
             }
         } catch (Exception e) {

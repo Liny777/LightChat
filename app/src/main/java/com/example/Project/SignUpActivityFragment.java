@@ -96,7 +96,7 @@ public class SignUpActivityFragment extends Fragment {
                 params.put("id",userId);
                 params.put("username",userName);
                 params.put("password",userPassword);
-                Utils.sendOKHttpPostRequest(getActivity().getString(R.string.register_url), params, new Callback() {
+                Utils.sendOkHttpPostRequest(getActivity().getString(R.string.register_url), params, new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
                         e.printStackTrace();

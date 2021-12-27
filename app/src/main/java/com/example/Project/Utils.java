@@ -28,17 +28,16 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 
 public class Utils {
-    public static String fetchPage(String urlString) {
+    public static String fetchPage(String urlString,String jwt) {
         StringBuilder json = new StringBuilder();
         InputStream is = null;
         try {
             URL url = new URL(urlString);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setReadTimeout(10000);
-            conn.setConnectTimeout(15000);
+//            conn.setRequestProperty("Content-Type", "application/json");
+            conn.setRequestProperty("jwt", jwt);
             conn.setRequestMethod("GET");
             conn.setDoInput(true);
-
             conn.connect();
             int responseCode = conn.getResponseCode();
 
@@ -126,7 +125,7 @@ public class Utils {
         client.newCall(request).enqueue(callback);
     }
 
-    public static void sendOKHttpPostRequest(String address,Map<String,Object> params,okhttp3.Callback callback){
+    public static void sendOkHttpPostRequest(String address,Map<String,Object> params,okhttp3.Callback callback){
         final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
         OkHttpClient client = new OkHttpClient();
         JSONObject jsonObject = new JSONObject();

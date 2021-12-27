@@ -1,6 +1,7 @@
 package com.example.Project;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -49,6 +50,11 @@ public class ChatroomActivity extends AppCompatActivity {
         ChatroomActivityFragment fragment = (ChatroomActivityFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_main);
         switch (id){
             case R.id.action_logout:
+                SharedPreferences pref=getSharedPreferences("user",MODE_PRIVATE);
+                SharedPreferences.Editor editor=pref.edit();
+                editor.clear();
+                editor.commit();
+                Log.i("logout","cleared local storage");
                 ChatroomActivityFragment.setLoginInformation(false, "", "");
                 Toast.makeText(this, "You have logged out", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(this, LoginActivity.class);

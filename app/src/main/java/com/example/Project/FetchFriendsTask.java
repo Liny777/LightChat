@@ -26,7 +26,7 @@ public class FetchFriendsTask extends AsyncTask<String, Void, Void> {
 
     @Override
     protected Void doInBackground(String... strings) {
-        String json_result = Utils.fetchPage(strings[0]);
+        String json_result = Utils.fetchPage(strings[0],strings[1]);
         if (json_result.equals("")) { //connection failed
             return null;
         }
@@ -44,7 +44,7 @@ public class FetchFriendsTask extends AsyncTask<String, Void, Void> {
 
             for (int i = 0; i < FriendsArray.length(); i++) {
                 String name_friend = FriendsArray.getString(i);
-                int chatroom_id = ChatroomsArray.getInt(i);
+                String chatroom_id = ChatroomsArray.getString(i);
                 chatrooms.add(new Chatroom(name_friend, chatroom_id));
             }
         } catch (Exception e) {
