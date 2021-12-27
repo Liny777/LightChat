@@ -58,6 +58,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Log.d(TAG, "Refreshed token: " + token);
         sendRegistrationToServer(token);
     }
+//     .url("http://47.250.43.42/api/a4/submit_push_token")
     // 注册后，将Token发送给服务器存储
     private void sendRegistrationToServer(String token) {
         // Implement your own logic to submit token to server
@@ -66,7 +67,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 .add("user_id", "1155169171")
                 .build();
         Request postMessages = new Request.Builder()
-                .url("http://47.250.43.42/api/a4/submit_push_token")
+                .url("http://10.0.2.2:8080/notification/storeToken")
                 .post(formBody)
                 .build();
         OkHttpClient client = new OkHttpClient();

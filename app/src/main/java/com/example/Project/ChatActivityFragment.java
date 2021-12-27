@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,19 +28,27 @@ import androidx.fragment.app.Fragment;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.net.URISyntaxException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import io.socket.client.IO;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 
 
 public class ChatActivityFragment extends Fragment {
     private IdNamePage idNamePage;
-    private static String getMessageURL = "http://3.17.158.90/api/a3/get_messages?chatroom_id=%d&page=%d";
-    private static String sendMessageURL = "http://3.17.158.90/api/a3/send_message";
+//    private static String getMessageURL = "http://3.17.158.90/api/a3/get_messages?chatroom_id=%d&page=%d";
+    private static String getMessageURL = "http://10.0.2.2:8080/notification/get_messages?chatroom_id=%d&page=%d";
+    private static String sendMessageURL = "http://10.0.2.2:8080/sendPrivateMessag/notification";
+//    private static String sendMessageURL = "http://3.17.158.90/api/a3/send_message";
     private static String socketURL = "http://3.17.158.90:8001";
     private static String lastPage = "Already the last page";
     private static String input_empty_alert = "Please enter a text";
