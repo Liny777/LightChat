@@ -51,4 +51,6 @@
     <string name="add_friend_url">http://10.0.2.2:8080/friend/add</string>
     <string name="fast_login_url">http://10.0.2.2:8080/fast_login</string>
 
+    <string name="msg_token_fmt" translatable="false">FCM registration Token: %s</string>
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
 </resources>

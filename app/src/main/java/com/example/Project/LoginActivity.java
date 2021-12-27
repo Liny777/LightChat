@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -21,8 +22,13 @@ import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Response;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
+
 public class LoginActivity extends AppCompatActivity {
 
+    private static final String TAG = "LoginActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SharedPreferences pref=this.getSharedPreferences("user",MODE_PRIVATE);
@@ -64,6 +70,24 @@ public class LoginActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("LOGIN");
         setSupportActionBar(toolbar);
+
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+            @Override
+            public void onComplete(@NonNull Task<String> task) {
+                if (!task.isSuccessful()) {
+                    Log.w(TAG, "Fetching FCM registration token failed", task.getException());
+                    return;
+                }
+
+                // Get new FCM registration token
+                String token = task.getResult();
+
+                // Log and toast
+                String msg = getString(R.string.msg_token_fmt, token);
+                Log.d(TAG, msg);
+                Toast.makeText(LoginActivity.this, msg, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
