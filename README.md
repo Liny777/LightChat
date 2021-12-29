@@ -1,3 +1,5 @@
+#Video Link
+https://www.youtube.com/watch?v=SwGzdAnV_4s
 # iems5722
 This is an Andriod online chatting application with some basic features. 
 >Team Members: He Yixin(1155164941) Lin Youguang(1155169171) 
