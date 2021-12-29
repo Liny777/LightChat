@@ -67,7 +67,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 .add("user_id", "1155169171")
                 .build();
         Request postMessages = new Request.Builder()
-                .url("http://10.0.2.2:8080/notification/storeToken")
+                .url("http://47.254.255.27:8080/notification/storeToken")
                 .post(formBody)
                 .build();
         OkHttpClient client = new OkHttpClient();

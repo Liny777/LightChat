@@ -46,8 +46,8 @@ import okhttp3.Request;
 public class ChatActivityFragment extends Fragment {
     private IdNamePage idNamePage;
 //    private static String getMessageURL = "http://3.17.158.90/api/a3/get_messages?chatroom_id=%d&page=%d";
-    private static String getMessageURL = "http://10.0.2.2:8080/notification/get_messages?chatroom_id=%d&page=%d";
-    private static String sendMessageURL = "http://10.0.2.2:8080/sendPrivateMessag/notification";
+    private static String getMessageURL = "http://47.254.255.27:8080/notification/get_messages?chatroom_id=%d&page=%d";
+    private static String sendMessageURL = "http://47.254.255.27:8080/notification/sendPrivateMessage";
 //    private static String sendMessageURL = "http://3.17.158.90/api/a3/send_message";
     private static String socketURL = "http://3.17.158.90:8001";
     private static String lastPage = "Already the last page";
